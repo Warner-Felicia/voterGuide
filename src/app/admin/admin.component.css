@@ -1,0 +1,19 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 200px);
+  width: 95%;
+  max-width: 500px;
+  margin: auto;
+  justify-content: center;
+  justify-items: center;
+}
+
+a {
+  padding: 10px 25px;
+  border-radius: 3px;
+  background-color: #7bb6db;
+  color: white;
+  border: none;
+  margin: 10px;
+  text-decoration: none;
+}

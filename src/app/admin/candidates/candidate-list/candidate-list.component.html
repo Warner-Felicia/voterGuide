@@ -1,0 +1,11 @@
+<div class="lds-ring" *ngIf="isLoading">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+<h2 *ngIf="mode == 'new' && candidates.length > 0">New Candidates</h2>
+<h2 *ngIf="mode == 'all' && candidates.length > 0">Candidates</h2>
+<app-candidate-item *ngFor="let candidate of candidates" [candidate]="candidate"></app-candidate-item>
+<h3 *ngIf="mode=='all' && candidates.length <=0">There are no candidates</h3>
+<h3 *ngIf="mode=='new' && candidates.length <=0">There are no new candidates</h3>

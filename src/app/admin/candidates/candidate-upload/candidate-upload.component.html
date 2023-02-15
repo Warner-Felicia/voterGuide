@@ -1,0 +1,8 @@
+<p>Choose CSV file to upload</p>
+<input type="file" name="file" accept="csv" (change)="onFileSelected($event)">
+<div class="lds-ring" *ngIf="isLoading">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>

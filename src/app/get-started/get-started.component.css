@@ -1,0 +1,11 @@
+.intro-wrapper {
+  width: 90%;
+  max-width: 600px;
+  margin: auto;
+}
+
+.intro-wrapper select {
+  display: block;
+  margin: auto;
+  
+}

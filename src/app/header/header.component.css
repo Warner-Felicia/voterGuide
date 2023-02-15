@@ -1,0 +1,26 @@
+.top-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-wrapper {
+  width: 200px
+}
+
+.logo-wrapper image {
+  width: 100%;
+}
+
+.loginBtn {
+  padding: 10px 25px;
+  border-radius: 3px;
+  background-color: #7bb6db;
+  color: white;
+  border: none;
+}
+
+h1 {
+  text-align: center;
+}
+
