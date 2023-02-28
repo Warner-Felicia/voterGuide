@@ -1,2 +1,0 @@
-election_dt,county_name,contest_name,name_on_ballot,first_name,middle_name,last_name,name_suffix_lbl,nick_name,street_address,city,state,zip_code,phone,office_phone,business_phone,email,candidacy_dt,party_contest,party_candidate,is_unexpired,has_primary,is_partisan,vote_for,term
-5/17/2022,ALAMANCE,US SENATE,"James L. Carr, Jr.",JAMES,LESTER,CARR,JR,,4250 FRENCH FIELDS LN,HARRISBURG,NC,28075,,,9808191964,INFO@CARRJR4SENATE.COM,3/2/2022,DEM,DEM,FALSE,TRUE,TRUE,1,6

@@ -11,6 +11,7 @@ const index = require('./server/routes/app');
 
 // imports for additional route files
 const candidateRoutes = require('./server/routes/candidates');
+const countyRoutes = require('./server/routes/counties');
 
 // connect to mongo database
 mongoose.connect('mongodb://localhost:27017/voter-guide',
@@ -55,6 +56,7 @@ app.use('/', index);
 
 //set additional routes
 app.use('/candidates', candidateRoutes);
+app.use('/counties', countyRoutes);
 
 // set non-defined routes back to the index page
 app.get('*', (req, res) => {

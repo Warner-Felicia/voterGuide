@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { Form } from '@angular/forms';
 
 import { Candidate } from './candidate.model';
 
@@ -34,12 +35,10 @@ export class CandidateService {
     return [...this.newCandidates];
   }
 
-  uploadCandidateCSV(file: File) {
-    if(!file) {
+  uploadCandidateData(formData: FormData) {
+    if(!formData) {
       return;
     }
-    const formData: FormData = new FormData();
-    formData.append('candidatesFile', file, file.name);  
     this.http.post<{ message: String, candidates: Candidate[], newCandidates: Candidate[] }>(
       'http://localhost:3000/candidates',
       formData,
@@ -51,4 +50,5 @@ export class CandidateService {
       this.router.navigate(['/', 'candidates', 'new']);
     })
   }
+
 }

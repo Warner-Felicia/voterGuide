@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -13,6 +13,7 @@ import { ResponsesComponent } from './admin/responses/responses.component';
 import { CandidateListComponent } from './admin/candidates/candidate-list/candidate-list.component';
 import { CandidateUploadComponent } from './admin/candidates/candidate-upload/candidate-upload.component';
 import { CandidateItemComponent } from './admin/candidates/candidate-list/candidate-item/candidate-item.component';
+import { FileUploadComponent } from './admin/candidates/file-upload/file-upload.component';
 
 @NgModule({
   declarations: [
@@ -24,13 +25,15 @@ import { CandidateItemComponent } from './admin/candidates/candidate-list/candid
     ResponsesComponent,
     CandidateListComponent,
     CandidateUploadComponent,
-    CandidateItemComponent
+    CandidateItemComponent,
+    FileUploadComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule  ],
+    ReactiveFormsModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

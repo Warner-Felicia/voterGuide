@@ -1,8 +1,32 @@
-<p>Choose CSV file to upload</p>
-<input type="file" name="file" accept="csv" (change)="onFileSelected($event)">
 <div class="lds-ring" *ngIf="isLoading">
   <div></div>
   <div></div>
   <div></div>
   <div></div>
 </div>
+<form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
+  <app-file-upload formControlName="candidateCSV"></app-file-upload>
+  <input type="checkbox" formControlName="trackPrimary" name="isPrimary" >
+  <label for="isPrimary">Upload Primary Candidates</label>
+  <button type="submit" class="btn">Upload Candidates</button>
+  <fieldset>
+    <legend>Favorite Counties</legend>
+    <div *ngFor="let county of favoriteCounties" class="form-control">
+      <input type="checkbox" [value]="county.countyName.toUpperCase()" (change)="onCheckboxChange($event)" id="county.countyName" />
+      <label for="county.countyName">{{ county.countyName }}</label>
+      <div class="favoritesImgWrapper" (click)="toggleFavorite(county.countyName, true)">
+        <img src="../../../../assets/images/filledFavoriteHeart.png" alt="favorite">
+      </div>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>Other Counties</legend>
+    <div *ngFor="let county of otherCounties" class="form-control">
+      <input type="checkbox" [value]="county.countyName.toUpperCase()" (change)="onCheckboxChange($event)" id="county.countyName" />
+      <label for="county.countyName">{{ county.countyName }}</label>
+      <div class="favoritesImgWrapper" (click)="toggleFavorite(county.countyName, false)">
+        <img src="../../../../assets/images/outlineFavoriteHeart.png" alt="favorite">
+      </div>
+    </div>
+  </fieldset>
+</form>

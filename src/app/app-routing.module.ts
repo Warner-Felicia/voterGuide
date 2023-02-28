@@ -9,13 +9,15 @@ import { CandidatesResolverService } from './admin/candidates/candidates-resolve
 import { NewCandidatesResolverService } from './admin/candidates/new-candidates-resolver.service';
 import { CandidateUploadComponent } from './admin/candidates/candidate-upload/candidate-upload.component';
 import { CandidateListComponent } from './admin/candidates/candidate-list/candidate-list.component';
+import { FavoriteCountiesResolverService } from './county/favoriteCounties-resolver.service';
+import { OtherCountiesResolverService } from './county/otherCounties-resolver.service';
 
 const appRoutes: Routes = [
   { path: '', component: GetStartedComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'responses', component: ResponsesComponent },
   { path: 'candidates', component: CandidateComponent, resolve: [CandidatesResolverService, NewCandidatesResolverService], children: [
-    { path: 'upload', component: CandidateUploadComponent },
+    { path: 'upload', component: CandidateUploadComponent, resolve: [FavoriteCountiesResolverService, OtherCountiesResolverService] },
     { path: ':mode', component: CandidateListComponent },
   ] }
 ];

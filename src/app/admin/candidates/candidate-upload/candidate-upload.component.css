@@ -1,0 +1,27 @@
+fieldset {
+  display: grid;
+  /* grid-auto-flow: column; */
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 10px;
+}
+
+.form-control {
+  display: flex;
+  align-items: center;
+}
+
+.form-control label {
+  margin: 0px 10px 0px 5px;
+}
+
+.favoritesImgWrapper {
+  width: 20px;
+}
+
+.favoritesImgWrapper img {
+  width: 100%;
+}
+
+.favoritesImgWrapper:hover {
+  transform: scale(.8);
+}
