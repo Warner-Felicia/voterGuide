@@ -1,11 +1,18 @@
-<div class="lds-ring" *ngIf="isLoading">
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-</div>
-<h2 *ngIf="mode == 'new' && candidates.length > 0">New Candidates</h2>
+<h2 *ngIf="mode == 'new' && candidates.length > 0">{{ candidates.length }} New Candidates</h2>
 <h2 *ngIf="mode == 'all' && candidates.length > 0">Candidates</h2>
-<app-candidate-item *ngFor="let candidate of candidates" [candidate]="candidate"></app-candidate-item>
+<div class="searchContainer main-center">
+  <input type="search" #searchBox (keyup)="search(searchBox.value)" placeholder="Enter a search value">
+  <div class="searchIcon">
+    <img src="../../../../assets/images/icons8-search-50.png">
+  </div>
+</div>
+<ul class="candidateList main-center">
+  <li class='list-heading'>
+    <p>Name</p>
+    <p>Contest</p>
+    <p>Candidacy Date</p>
+  </li>
+  <app-candidate-item *ngFor="let candidate of candidates | candidatesFilter: term" [candidate]="candidate"></app-candidate-item>
+</ul>
 <h3 *ngIf="mode=='all' && candidates.length <=0">There are no candidates</h3>
 <h3 *ngIf="mode=='new' && candidates.length <=0">There are no new candidates</h3>

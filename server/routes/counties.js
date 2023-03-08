@@ -1,23 +1,11 @@
 const express = require('express');
 
 const County = require('../models/county');
+const countyController = require('../controllers/counties');
 
 const router = express.Router();
 
-router.get('/', async(req, res, next) => {
-  try{
-    const counties = await County.find().sort({ countyName: 1});
-    res.status(200).json({
-      message: "Successfully fetched counties",
-      counties: counties
-    })
-  } catch (error) {
-    res.status(500).json({
-      message: 'Unable to fetch counties',
-      error: error
-    })
-  }
-})
+router.get('/', countyController.getCounties);
 
 router.put('/toggleFavorite', async(req, res, next) => {
   try{

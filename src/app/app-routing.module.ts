@@ -10,14 +10,14 @@ import { NewCandidatesResolverService } from './admin/candidates/new-candidates-
 import { CandidateUploadComponent } from './admin/candidates/candidate-upload/candidate-upload.component';
 import { CandidateListComponent } from './admin/candidates/candidate-list/candidate-list.component';
 import { FavoriteCountiesResolverService } from './county/favoriteCounties-resolver.service';
-import { OtherCountiesResolverService } from './county/otherCounties-resolver.service';
+import { CountiesResolverService } from './county/counties-resolver.service';
 
 const appRoutes: Routes = [
   { path: '', component: GetStartedComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'responses', component: ResponsesComponent },
   { path: 'candidates', component: CandidateComponent, resolve: [CandidatesResolverService, NewCandidatesResolverService], children: [
-    { path: 'upload', component: CandidateUploadComponent, resolve: [FavoriteCountiesResolverService, OtherCountiesResolverService] },
+    { path: 'upload', component: CandidateUploadComponent, resolve: [FavoriteCountiesResolverService, CountiesResolverService] },
     { path: ':mode', component: CandidateListComponent },
   ] }
 ];

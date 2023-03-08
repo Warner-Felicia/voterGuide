@@ -9,9 +9,9 @@ import { Subject } from 'rxjs';
 })
 export class CountyService {
   favoriteCounties: County[] = [];
-  otherCounties: County[] = []; 
+  counties: County[] = [];
   favoriteCountiesChangeEvent = new Subject<County[]>();
-  otherCountiesChangeEvent = new Subject<County[]>();
+  countiesChangeEvent = new Subject<County[]>();
 
   constructor(private http: HttpClient) {
     this.http.get<{ message: string, counties: County[] }>(
@@ -19,8 +19,9 @@ export class CountyService {
     ).subscribe(
       (responseData: { message: String, counties: County[] }) => {
         this.sortCounties(responseData.counties);
+        this.counties = responseData.counties;
         this.favoriteCountiesChangeEvent.next([...this.favoriteCounties]);
-        this.otherCountiesChangeEvent.next([...this.otherCounties]);
+        this.countiesChangeEvent.next([...this.counties]);
       }
     );
   }
@@ -29,23 +30,27 @@ export class CountyService {
     return [...this.favoriteCounties];
   }
 
-  getOtherCounties() {
-    return [...this.otherCounties];
+  getCounties() {
+    return [...this.counties];
   }
 
   toggleFavorite(countyName: string, favorite: boolean) {
     if (!countyName) {
       return;
     }
+    let favPosition: number;
     let position: number;
-    
+
     if (favorite) {
-      position = this.favoriteCounties.findIndex(c => c.countyName === countyName);
-    } else if (!favorite) {
-      position = this.otherCounties.findIndex(c => c.countyName === countyName);
-    } else {
+      favPosition = this.favoriteCounties.findIndex(c => c.countyName === countyName);
+    }
+
+    position = this.counties.findIndex(c => c.countyName === countyName);
+
+    if (position < 0 || (favorite && favPosition < 0)) {
       return;
     }
+
 
     this.http.put<{ message: String, updatedCounty: County }>(
       'http://localhost:3000/counties/toggleFavorite',
@@ -54,15 +59,14 @@ export class CountyService {
       (responseData: { message: String, updatedCounty: County }) => {
         if (favorite) {
           this.favoriteCounties.splice(position, 1);
-          this.otherCounties.push(responseData.updatedCounty);
-          this.otherCounties = this.otherCounties.sort((a, b) => a.countyName > b.countyName ? 1 : -1);
         } else {
-          this.otherCounties.splice(position, 1);
           this.favoriteCounties.push(responseData.updatedCounty);
           this.favoriteCounties = this.favoriteCounties.sort((a, b) => a.countyName > b.countyName ? 1 : -1);
         }
+        this.counties[position] = responseData.updatedCounty;
+        this.counties = this.counties.sort((a, b) => a.countyName > b.countyName ? 1 : -1);
         this.favoriteCountiesChangeEvent.next([...this.favoriteCounties]);
-        this.otherCountiesChangeEvent.next([...this.otherCounties]);
+        this.countiesChangeEvent.next([...this.counties]);
       }
     )
   }
@@ -71,9 +75,7 @@ export class CountyService {
     for (let county of counties) {
       if (county.favorite === true) {
         this.favoriteCounties.push(county);
-      } else {
-        this.otherCounties.push(county);
-      }
+      } 
     }
   }
 }

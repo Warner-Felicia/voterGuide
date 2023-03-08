@@ -1,6 +1,41 @@
-fieldset {
+form {
+  background: rgba(242, 5, 5, .7);
+  padding: 40px 40px 20px 40px;
+  border-radius: 3px;
+}
+
+fieldset,
+.csv-form-control {
+  border: none;
+  background-color: white;
+  color: #000;
+  box-shadow: 3px 3px 5px;
+  border-radius: 3px;
+  padding: 15px;
+  margin-bottom: 10px;
+}
+
+.legend {
+  grid-column: 1/5;
+  margin: 0px 0px 10px 0px;
+}
+
+app-file-upload {
+  display: block;
+}
+
+.note {
+  font-size: 12px;
+}
+
+.showMoreLess {
+  grid-column: 1/5;
+  font-size: 12px;
+}
+
+.counties,
+.allCounties {
   display: grid;
-  /* grid-auto-flow: column; */
   grid-template-columns: repeat(4, 1fr);
   grid-column-gap: 10px;
 }
@@ -24,4 +59,10 @@ fieldset {
 
 .favoritesImgWrapper:hover {
   transform: scale(.8);
+}
+
+.btn-form-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
 }

@@ -1,32 +1,37 @@
-<div class="lds-ring" *ngIf="isLoading">
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-</div>
-<form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
-  <app-file-upload formControlName="candidateCSV"></app-file-upload>
-  <input type="checkbox" formControlName="trackPrimary" name="isPrimary" >
-  <label for="isPrimary">Upload Primary Candidates</label>
-  <button type="submit" class="btn">Upload Candidates</button>
-  <fieldset>
-    <legend>Favorite Counties</legend>
+<h2>Upload Candidate Information</h2>
+<form [formGroup]="uploadForm" (ngSubmit)="onSubmit()" class="main-center">
+  <div class="csv-form-control">
+    <app-file-upload formControlName="candidateCSV"></app-file-upload>
+    <input type="checkbox" formControlName="trackPrimary" name="isPrimary">
+    <label for="isPrimary" class="note">Upload primary candidates</label>
+    <p class="note">*By default only general election candidates are uploaded.  Checking this box will upload primary candidates instead.</p>
+  </div>
+  <fieldset class="counties">
+    <p class="legend">Select Counties:</p>
     <div *ngFor="let county of favoriteCounties" class="form-control">
-      <input type="checkbox" [value]="county.countyName.toUpperCase()" (change)="onCheckboxChange($event)" id="county.countyName" />
-      <label for="county.countyName">{{ county.countyName }}</label>
+      <input type="checkbox" [value]="county.countyName.toUpperCase()" (change)="onCheckboxChange($event)" id="{{county.countyName}}" />
+      <label for="{{county.countyName}}">{{ county.countyName }}</label>
       <div class="favoritesImgWrapper" (click)="toggleFavorite(county.countyName, true)">
         <img src="../../../../assets/images/filledFavoriteHeart.png" alt="favorite">
       </div>
     </div>
+    <p (click)="onShowOtherCounties(true)" *ngIf="!showOtherCounties" class="showMoreLess">show more...</p>
+    <p (click)="onShowOtherCounties(false)" *ngIf="showOtherCounties" class="showMoreLess">show less...</p>
   </fieldset>
-  <fieldset>
-    <legend>Other Counties</legend>
-    <div *ngFor="let county of otherCounties" class="form-control">
-      <input type="checkbox" [value]="county.countyName.toUpperCase()" (change)="onCheckboxChange($event)" id="county.countyName" />
+  <fieldset class="allCounties" *ngIf="showOtherCounties">
+    <p class="legend">All Counties</p>
+    <div *ngFor="let county of counties" class="form-control">
+      <input type="checkbox" [value]="county.countyName.toUpperCase()" (change)="onCheckboxChange($event)"
+        id="county.countyName" />
       <label for="county.countyName">{{ county.countyName }}</label>
       <div class="favoritesImgWrapper" (click)="toggleFavorite(county.countyName, false)">
-        <img src="../../../../assets/images/outlineFavoriteHeart.png" alt="favorite">
+        <img src="../../../../assets/images/filledFavoriteHeart.png" alt="favorite" *ngIf="county.favorite">
+        <img src="../../../../assets/images/outlineFavoriteHeart.png" alt="favorite" *ngIf="!county.favorite">
       </div>
     </div>
+    <p (click)="onShowOtherCounties(false)" *ngIf="showOtherCounties" class="showMoreLess">show less...</p>
   </fieldset>
+  <div class="btn-form-wrapper">
+    <button type="submit" class="btn btn-form">Upload Candidates</button>
+  </div>
 </form>

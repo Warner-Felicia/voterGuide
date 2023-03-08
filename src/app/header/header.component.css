@@ -13,14 +13,8 @@
 }
 
 .loginBtn {
-  padding: 10px 25px;
-  border-radius: 3px;
-  background-color: #7bb6db;
-  color: white;
-  border: none;
+  margin-right: 10px;
 }
 
-h1 {
-  text-align: center;
-}
+
 

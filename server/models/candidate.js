@@ -4,8 +4,8 @@ var candidateSchema = new mongoose.Schema({
   electionDate: {
     type: Date
   },
-  countyName: {
-    type: String
+  counties: {
+    type: Array
   },
   contestName: {
     type: String

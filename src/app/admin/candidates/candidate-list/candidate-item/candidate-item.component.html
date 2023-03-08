@@ -1,1 +1,11 @@
-<p>{{ candidate.nameOnBallot }}</p>
+<li class="candidateCard">
+  <p>{{ candidate.nameOnBallot }}</p>
+  <p>{{ candidate.contestName }}</p>
+  <p>{{ candidate.candidacyDate | date }}</p>
+  <div class="img-container">
+    <img src="../../../../../assets/images/seeMore.png" alt="">
+  </div>
+  <div class="img-container">
+    <img src="../../../../../assets/images/delete.png" alt="">
+  </div>
+</li>

@@ -14,12 +14,11 @@ export class CandidateListComponent implements OnInit, OnDestroy {
   candidates: Candidate[] = [];
   candidateSubscription: Subscription;
   mode: String;
-  isLoading = false;
+  term: String;
 
   constructor(private candidateService: CandidateService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.isLoading = true;
     this.route.params.subscribe((params: Params) => {
       if (params.mode == 'new') {
         this.mode = 'new';
@@ -36,8 +35,11 @@ export class CandidateListComponent implements OnInit, OnDestroy {
           }
         )
       }
-      this.isLoading = false;
     })
+  }
+
+  search(value: string) {
+    this.term = value;
   }
   
   ngOnDestroy(): void {

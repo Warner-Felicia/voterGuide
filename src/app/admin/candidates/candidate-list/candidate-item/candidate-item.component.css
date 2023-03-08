@@ -1,0 +1,21 @@
+.candidateCard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) 50px 50px;
+  text-decoration: none;
+  background-color: white;
+  border-top: 1px solid gray;
+  padding: 5px;
+  font-size: 12px;
+}
+
+.candidateCard p {
+  margin: 5px;
+}
+
+.img-container {
+  width: 20px;
+}
+
+.img-container img {
+  width: 100%;
+}

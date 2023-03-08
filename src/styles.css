@@ -3,6 +3,7 @@
 html,
 body {
   height: 100%;
+  box-sizing: border-box;
 }
 
 body {
@@ -10,61 +11,42 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+h1 {
+  text-align: center;
+  background-color: #7bb6db;
+  color: white;
+  padding: 10px;
+  margin-top: 0px;
+}
+
+h2 {
+  text-align: center;
+}
+
 .btn {
   padding: 10px 25px;
   border-radius: 3px;
-  background-color: #7bb6db;
-  color: white;
   border: none;
 }
 
-/*styling for loading animation*/
-input::file-selector-button {
-  padding: 10px 25px;
-  border-radius: 3px;
+.btn-normal {
+  background-color: #7bb6db;
+  color: white;
+}
+
+.btn-form {
   background-color: white;
-  color: #7bb6db;
-  border: 2px solid #7bb6db;
+  color: #000;
+  box-shadow: 3px 3px 5px;
 }
 
-.lds-ring {
-  display: inline-block;
-  position: relative;
-  width: 80px;
-  height: 80px;
+.main-center {
+  width: 90%;
+  max-width: 700px;
+  margin: auto;
 }
 
-.lds-ring div {
-  box-sizing: border-box;
-  display: block;
-  position: absolute;
-  width: 64px;
-  height: 64px;
-  margin: 8px;
-  border: 8px solid #7bb6db;
-  border-radius: 50%;
-  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: #7bb6db transparent transparent transparent;
+.img-container img {
+  width: 100%;
 }
 
-.lds-ring div:nth-child(1) {
-  animation-delay: -0.45s;
-}
-
-.lds-ring div:nth-child(2) {
-  animation-delay: -0.3s;
-}
-
-.lds-ring div:nth-child(3) {
-  animation-delay: -0.15s;
-}
-
-@keyframes lds-ring {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}

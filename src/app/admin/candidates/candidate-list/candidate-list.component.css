@@ -1,0 +1,38 @@
+.candidateList {
+  border: 1px solid rgba(242, 5, 5, .7);
+  padding: 0px;
+  border-radius: 3px;
+}
+
+.list-heading {
+  background-color: rgba(242, 5, 5, .7);
+  color: white;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) 50px 50px;
+  margin: 0px;
+  padding: 0px 10px;
+}
+
+.searchContainer {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.searchContainer input {
+  width: 30%;
+  min-width: 200px;
+  height: 30px;
+  margin-bottom: 20px;
+}
+
+.searchIcon {
+  position: absolute;
+  right: 5px;
+  top: 7px;
+  width: 20px;
+}
+
+.searchIcon img {
+  width: 100%;
+}

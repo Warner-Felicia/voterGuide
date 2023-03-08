@@ -13,26 +13,26 @@ import { requiredFileType } from 'src/app/shared/requiredFileType.service';
   styleUrls: ['./candidate-upload.component.css']
 })
 export class CandidateUploadComponent implements OnInit, OnDestroy {
-  isLoading: boolean = false;
   favoriteCounties: County[] = [];
-  otherCounties: County[] = [];
+  counties: County[] = [];
   favoriteCountiesSubscription: Subscription;
-  otherCountiesSubscription: Subscription;
+  countiesSubscription: Subscription;
   uploadForm: FormGroup;
+  showOtherCounties = false;
 
   constructor(private candidateService: CandidateService, private countyService: CountyService, private formBuilder: FormBuilder) { }
   
   ngOnInit(): void {
     //setting up county information
     this.favoriteCounties = this.countyService.getFavoriteCounties();
-    this.otherCounties = this.countyService.getOtherCounties();
+    this.counties = this.countyService.getCounties();
     this.favoriteCountiesSubscription = this.countyService.favoriteCountiesChangeEvent.subscribe((counties: County[]) => {
       this.favoriteCounties = counties;
       
     });
-    this.otherCountiesSubscription = this.countyService.otherCountiesChangeEvent.subscribe(
+    this.countiesSubscription = this.countyService.countiesChangeEvent.subscribe(
       (counties: County[]) => {
-        this.otherCounties = counties;
+        this.counties = counties;
       }
     )
 
@@ -70,9 +70,13 @@ export class CandidateUploadComponent implements OnInit, OnDestroy {
     this.countyService.toggleFavorite(countyName, favorite);
   }
 
+  onShowOtherCounties(state: boolean) {
+    this.showOtherCounties = state;
+  }
+
   ngOnDestroy(): void {
     this.favoriteCountiesSubscription.unsubscribe();
-    this.otherCountiesSubscription.unsubscribe();
+    this.countiesSubscription.unsubscribe();
   }
 
 }
