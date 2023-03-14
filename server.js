@@ -1,4 +1,5 @@
 //dependencies
+require('dotenv').config();
 const express = require('express');
 const http = require('http');
 const mongoose = require('mongoose');
@@ -9,12 +10,14 @@ const csv = require('csvtojson')
 // import for index route
 const index = require('./server/routes/app');
 
+const MONGODB_URI = process.env.MONGODB_URI;
+
 // imports for additional route files
 const candidateRoutes = require('./server/routes/candidates');
 const countyRoutes = require('./server/routes/counties');
 
 // connect to mongo database
-mongoose.connect('mongodb://localhost:27017/voter-guide',
+mongoose.connect(MONGODB_URI,
   { useNewUrlParser: true }, (err, res) => {
     if (err) {
       console.log('Connection failed: ' + err);

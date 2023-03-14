@@ -51,4 +51,8 @@ export class CandidateService {
     })
   }
 
+  getCandidatesToReview() {
+    console.log('here');
+  }
+
 }

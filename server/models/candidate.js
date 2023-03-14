@@ -21,6 +21,9 @@ var candidateSchema = new mongoose.Schema({
   },
   term: {
     type: Number
+  },
+  response: {
+    type: Object
   }
 });
 

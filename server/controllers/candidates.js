@@ -1,5 +1,4 @@
 const csv = require('csvtojson');
-const { response } = require('express');
 const Candidate = require('../models/candidate');
 
 module.exports.getCandidates = async (req, res, next) => {
@@ -33,16 +32,6 @@ module.exports.postUploadCandidates = async (req, res, next) => {
     //filter for desired counties and if primary or general election
     if (counties.includes(response.county_name) && trackPrimary === response.has_primary) {
       
-      //use findAndUpdate to update candidates and add to correct array
-      // var candidate = ({
-      //   electionDate: new Date(response.election_dt),
-      //   // countyName: response.county_name,
-      //   contestName: response.contest_name,
-      //   nameOnBallot: response.name_on_ballot,
-      //   candidacyDate: response.candidacy_dt,
-      //   voteFor: response.vote_for,
-      //   term: response.term
-      // });
       try {
         const result = await Candidate.findOneAndUpdate(
           {

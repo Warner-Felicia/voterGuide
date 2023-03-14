@@ -15,6 +15,8 @@ import { CandidateUploadComponent } from './admin/candidates/candidate-upload/ca
 import { CandidateItemComponent } from './admin/candidates/candidate-list/candidate-item/candidate-item.component';
 import { FileUploadComponent } from './admin/candidates/file-upload/file-upload.component';
 import { CandidatesFilterPipe } from './admin/candidates/candidate-filter.pipe';
+import { CandidateReviewComponent } from './admin/candidates/candidate-review/candidate-review.component';
+import { CandidateDetailComponent } from './admin/candidates/candidate-detail/candidate-detail.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { CandidatesFilterPipe } from './admin/candidates/candidate-filter.pipe';
     CandidateUploadComponent,
     CandidateItemComponent,
     FileUploadComponent,
-    CandidatesFilterPipe
+    CandidatesFilterPipe,
+    CandidateReviewComponent,
+    CandidateDetailComponent
   ],
   imports: [
     BrowserModule,

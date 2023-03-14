@@ -11,6 +11,7 @@ import { CandidateUploadComponent } from './admin/candidates/candidate-upload/ca
 import { CandidateListComponent } from './admin/candidates/candidate-list/candidate-list.component';
 import { FavoriteCountiesResolverService } from './county/favoriteCounties-resolver.service';
 import { CountiesResolverService } from './county/counties-resolver.service';
+import { CandidateReviewComponent } from './admin/candidates/candidate-review/candidate-review.component';
 
 const appRoutes: Routes = [
   { path: '', component: GetStartedComponent },
@@ -18,7 +19,9 @@ const appRoutes: Routes = [
   { path: 'responses', component: ResponsesComponent },
   { path: 'candidates', component: CandidateComponent, resolve: [CandidatesResolverService, NewCandidatesResolverService], children: [
     { path: 'upload', component: CandidateUploadComponent, resolve: [FavoriteCountiesResolverService, CountiesResolverService] },
-    { path: ':mode', component: CandidateListComponent },
+    { path: 'review', component: CandidateReviewComponent },
+    { path: ':mode', component: CandidateListComponent }
+    
   ] }
 ];
 

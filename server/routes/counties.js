@@ -26,4 +26,3 @@ router.put('/toggleFavorite', async(req, res, next) => {
 })
 
 module.exports = router;
-

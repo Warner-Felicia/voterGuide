@@ -13,6 +13,10 @@
   padding: 0px 10px;
 }
 
+.list-heading p {
+  margin: 5px;
+}
+
 .searchContainer {
   position: relative;
   display: flex;
