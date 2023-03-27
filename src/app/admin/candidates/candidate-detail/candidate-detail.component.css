@@ -1,0 +1,62 @@
+.border {
+  width: 75%;
+  max-width: 600px;
+  min-width: 300px;
+  margin: auto;
+  background-color: rgba(242, 5, 5, .7);
+  border-radius: 3px;
+  padding: 10px;
+  
+}
+
+.details {
+  border-radius: 3px;
+  background-color: white;
+  margin: 15px;
+  padding: 0px 15px;
+  box-shadow: 3px 3px 5px;
+  border: 1px solid white;
+}
+
+.counter {
+  font-size: 10px;
+}
+
+.name{
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 0px 50px;
+  margin: 0px;
+}
+
+.name p {
+  margin: 5px;
+}
+
+.name .contest {
+  text-align: right;
+}
+
+h3 {
+  text-align: center;
+}
+
+.response label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.response p {
+  font-size: 12px;
+}
+
+.candidate-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.candidate-actions button {
+  margin-right: 14px;
+}

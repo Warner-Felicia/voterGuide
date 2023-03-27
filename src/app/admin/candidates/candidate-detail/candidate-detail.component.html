@@ -1,16 +1,21 @@
-<div class="form-center">
-  <div>
-    <p>X of total</p>
-    <p>name on ballot</p>
-    <p>contest name</p>
-    <p>election date</p>
-    <p>counties</p>
-    <p>term</p>
-    <p>candidacy date</p>
+<div class="border">
+  <div class="details">
+    <p class="counter">{{ number }} of {{ total }}</p>
+    <div class="name">
+      <p>{{ candidate.nameOnBallot }}</p>
+      <p class="contest">{{ candidate.contestName | titlecase }}</p>
+    </div>
+    <div class="response">
+      <h3>Response</h3>
+      <div *ngFor="let item of candidate.response | keyvalue">
+        <label>{{ item.key | titlecase }} </label>
+        <p>{{ item.value }}</p>
+      </div>
+    </div>
   </div>
-  <div>
-    <p>Candidate Response</p>
-    <label>Question</label>
-    <input type="text">
+  <div class="candidate-actions">
+    <button class="btn btn-form">Reset</button>
+    <button class="btn btn-form">Save and Approve</button>
   </div>
+
 </div>

@@ -3,8 +3,8 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { Subscription } from 'rxjs';
 
 import { CandidateService } from '../candidate.service';
-import { CountyService } from '../../../county/county.service';
-import { County } from '../../../county/county.model';
+import { CountyService } from '../../county/county.service';
+import { County } from '../../county/county.model';
 import { requiredFileType } from 'src/app/shared/requiredFileType.service';
 
 @Component({

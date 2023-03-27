@@ -13,4 +13,8 @@ router.get('/', candidatesController.getCandidates);
 
 router.post('/', upload.single("candidateCSV"), candidatesController.postUploadCandidates);
 
+router.get('/reviewCandidates', candidatesController.getCandidatesToReview);
+
+router.put('/reviewCandidates', candidatesController.putUpdateCandidate);
+
 module.exports = router;

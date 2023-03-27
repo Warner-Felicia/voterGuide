@@ -24,7 +24,11 @@ var candidateSchema = new mongoose.Schema({
   },
   response: {
     type: Object
+  },
+  approved: {
+    type: Boolean
   }
+
 });
 
 module.exports = mongoose.model('candidate', candidateSchema);

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { Observable, Subject, map } from 'rxjs';
 import { Router } from '@angular/router';
-import { Form } from '@angular/forms';
 
 import { Candidate } from './candidate.model';
 
@@ -12,8 +11,10 @@ import { Candidate } from './candidate.model';
 export class CandidateService {
   candidates: Candidate[] = [];
   newCandidates: Candidate[] = [];
-  candidatesChangeEvent = new Subject<Candidate[]>(); 
+  reviewCandidates: Candidate[] = [];
+  candidatesChangeEvent = new Subject<Candidate[]>();
   newCandidatesChangeEvent = new Subject<Candidate[]>();
+  reviewCandidatesChangeEvent = new Subject<Candidate[]>();
 
   constructor(private http: HttpClient, private router: Router) {
     this.http.get<{ message: String, candidates: Candidate[] }>(
@@ -23,7 +24,7 @@ export class CandidateService {
         this.candidates = responseData.candidates;
         this.candidatesChangeEvent.next([...this.candidates]);
         this.newCandidatesChangeEvent.next([...this.newCandidates]);
-    }
+      }
     )
   }
 
@@ -36,7 +37,7 @@ export class CandidateService {
   }
 
   uploadCandidateData(formData: FormData) {
-    if(!formData) {
+    if (!formData) {
       return;
     }
     this.http.post<{ message: String, candidates: Candidate[], newCandidates: Candidate[] }>(
@@ -51,8 +52,43 @@ export class CandidateService {
     })
   }
 
-  getCandidatesToReview() {
-    console.log('here');
+  getCandidatesToReview(): Candidate[] {
+    this.http.get<{ message: String, candidates: Candidate[] }>(
+      'http://localhost:3000/candidates/reviewCandidates'
+    ).subscribe(responseData => {
+      this.reviewCandidates = responseData.candidates;
+      this.reviewCandidatesChangeEvent.next([...this.reviewCandidates]);
+    })
+    return [...this.reviewCandidates];
+  }
+
+  updateResponse(response: Array<{ tag: string, answer: string }>, candidate: Candidate) {
+    if (!candidate) {
+      return;
+    }
+
+    const position = this.reviewCandidates.findIndex(c => c._id === candidate._id);
+    if (position < 0) {
+      return;
+    }
+
+    //update answers
+    for (let i = 0; i < response.length; i++) {
+      candidate.response[i].answer = response[i].answer;
+    }
+
+    //approve response
+    candidate.approved = true;
+
+    //send put request to backend
+    this.http.put<{ message: String, candidate: Candidate }>(
+      'http://localhost:3000/candidates/reviewCandidates',
+      candidate
+    ).subscribe(responseData => {
+      console.log(responseData.candidate);
+      this.reviewCandidates.splice(position, 1);
+      this.reviewCandidatesChangeEvent.next([...this.reviewCandidates]);
+    });
   }
 
 }

@@ -9,8 +9,8 @@ import { CandidatesResolverService } from './admin/candidates/candidates-resolve
 import { NewCandidatesResolverService } from './admin/candidates/new-candidates-resolver.service';
 import { CandidateUploadComponent } from './admin/candidates/candidate-upload/candidate-upload.component';
 import { CandidateListComponent } from './admin/candidates/candidate-list/candidate-list.component';
-import { FavoriteCountiesResolverService } from './county/favoriteCounties-resolver.service';
-import { CountiesResolverService } from './county/counties-resolver.service';
+import { FavoriteCountiesResolverService } from './admin/county/favoriteCounties-resolver.service';
+import { CountiesResolverService } from './admin/county/counties-resolver.service';
 import { CandidateReviewComponent } from './admin/candidates/candidate-review/candidate-review.component';
 
 const appRoutes: Routes = [

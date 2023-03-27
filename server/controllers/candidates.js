@@ -1,4 +1,6 @@
 const csv = require('csvtojson');
+const candidate = require('../models/candidate');
+const { update } = require('../models/candidate');
 const Candidate = require('../models/candidate');
 
 module.exports.getCandidates = async (req, res, next) => {
@@ -46,7 +48,8 @@ module.exports.postUploadCandidates = async (req, res, next) => {
             nameOnBallot: response.name_on_ballot,
             candidacyDate: response.candidacy_dt,
             voteFor: response.vote_for,
-            term: response.term
+            term: response.term,
+            approved: false
           },
           { upsert: true, rawResult: true, new: true }
         );
@@ -66,4 +69,28 @@ module.exports.postUploadCandidates = async (req, res, next) => {
     newCandidates: newCandidates,
     candidates: candidates
   })
+}
+
+module.exports.getCandidatesToReview = async (req, res, next) => {
+  try {
+    candidatesToReview = await Candidate.find({ approved: false, response: { $exists: true} });
+    res.status(200).json({
+      message: 'Review candidates successfully fetched',
+      candidates: candidatesToReview
+    })
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+module.exports.putUpdateCandidate = async (req, res, next) => {
+  try {
+    const candidate = await Candidate.findByIdAndUpdate(req.body._id, { response: req.body.response, approved: req.body.approved },)
+    res.status(200).json({
+      message: 'Response updated',
+      candidate: candidate
+    });
+  } catch (err) {
+    console.log(err);
+  }
 }

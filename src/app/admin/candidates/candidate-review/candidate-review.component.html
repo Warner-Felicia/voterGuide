@@ -1,1 +1,25 @@
-<app-candidate-detail></app-candidate-detail>
+<h2 *ngIf="total <= 0">No New Responses to Review</h2>
+<form [formGroup]="editForm" (ngSubmit)="onSubmit()" class="main-center" *ngIf="total > 0">
+  <fieldset>
+    <div class="details">
+      <p class="counter">1 of {{ total }}</p>
+      <div class="name">
+        <p>{{ candidate?.nameOnBallot }}</p>
+        <p class="contest">{{ candidate?.contestName | titlecase }}</p>
+      </div>
+      <div class="response">
+        <h3>Response</h3>
+        <div *ngFor="let item of candidate?.response; index as i">
+          <label for="{{ item.tag }}">{{ item.question | titlecase }} </label>
+          <input type="text" *ngIf="!item.textarea" id="{{ item.tag }}" formControlName="{{ item.tag }}">
+          <textarea *ngIf="item.textarea" id="{{ item.tag }}" formControlName="{{ item.tag }}"></textarea>
+        </div>
+      </div>
+      <input type="hidden" value="{{ candidate?._id }}">
+    </div>
+    <div class="candidate-actions">
+      <button class="btn btn-form">Reset</button>
+      <button type="submit" class="btn btn-form">Save and Approve</button>
+    </div>
+  </fieldset>
+</form>

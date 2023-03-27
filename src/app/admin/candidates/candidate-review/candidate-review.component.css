@@ -1,0 +1,68 @@
+.counter {
+  font-size: 10px;
+}
+
+.name {
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 0px 50px;
+  margin: 0px;
+}
+
+.name p {
+  margin: 5px;
+}
+
+.name .contest {
+  text-align: right;
+}
+
+h3 {
+  text-align: center;
+}
+
+.response {
+  width: 80%;
+  margin: auto;
+}
+
+.response label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.response p {
+  font-size: 12px;
+}
+
+.response input, .response textarea {
+  display: block;
+  width: 100%;
+  margin-bottom: 20px;
+  margin-top: 3px;
+}
+
+.response input {
+  height: 30px;
+}
+.response textarea {
+  height: 100px;
+}
+
+.candidate-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.candidate-actions button {
+  padding: 10px 25px;
+  border-radius: 3px;
+  background-color: rgba(242, 5, 5, .7);
+  color: #fff;
+  border: none;
+  box-shadow: 3px 3px 5px #000;
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
