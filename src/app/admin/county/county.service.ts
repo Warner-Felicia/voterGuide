@@ -35,6 +35,7 @@ export class CountyService {
   }
 
   toggleFavorite(countyName: string, favorite: boolean) {
+    console.log(favorite);
     if (!countyName) {
       return;
     }
@@ -58,7 +59,7 @@ export class CountyService {
     ).subscribe(
       (responseData: { message: String, updatedCounty: County }) => {
         if (favorite) {
-          this.favoriteCounties.splice(position, 1);
+          this.favoriteCounties.splice(favPosition, 1);
         } else {
           this.favoriteCounties.push(responseData.updatedCounty);
           this.favoriteCounties = this.favoriteCounties.sort((a, b) => a.countyName > b.countyName ? 1 : -1);

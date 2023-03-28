@@ -11,7 +11,7 @@
     <div *ngFor="let county of favoriteCounties" class="form-control">
       <input type="checkbox" [value]="county.countyName.toUpperCase()" (change)="onCheckboxChange($event)" id="{{county.countyName}}" />
       <label for="{{county.countyName}}">{{ county.countyName }}</label>
-      <div class="favoritesImgWrapper" (click)="toggleFavorite(county.countyName, true)">
+      <div class="favoritesImgWrapper" (click)="toggleFavorite(county.countyName, county.favorite)">
         <img src="../../../../assets/images/filledFavoriteHeart.png" alt="favorite">
       </div>
     </div>
@@ -24,7 +24,7 @@
       <input type="checkbox" [value]="county.countyName.toUpperCase()" (change)="onCheckboxChange($event)"
         id="county.countyName" />
       <label for="county.countyName">{{ county.countyName }}</label>
-      <div class="favoritesImgWrapper" (click)="toggleFavorite(county.countyName, false)">
+      <div class="favoritesImgWrapper" (click)="toggleFavorite(county.countyName, county.favorite)">
         <img src="../../../../assets/images/filledFavoriteHeart.png" alt="favorite" *ngIf="county.favorite">
         <img src="../../../../assets/images/outlineFavoriteHeart.png" alt="favorite" *ngIf="!county.favorite">
       </div>
