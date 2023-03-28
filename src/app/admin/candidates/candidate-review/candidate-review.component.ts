@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable, first, mergeAll, count } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 import { Candidate } from '../candidate.model';
 import { CandidateService } from '../candidate.service';
@@ -10,8 +10,9 @@ import { CandidateService } from '../candidate.service';
   templateUrl: './candidate-review.component.html',
   styleUrls: ['./candidate-review.component.css']
 })
-export class CandidateReviewComponent implements OnInit {
+export class CandidateReviewComponent implements OnInit, OnDestroy {
   reviewCandidates: Candidate[];
+  candidateSubscription: Subscription;
   total: number;
   counter: number = 0;
   candidate: Candidate;
@@ -21,7 +22,7 @@ export class CandidateReviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.reviewCandidates = this.candidateService.getCandidatesToReview();
-    this.candidateService.reviewCandidatesChangeEvent.subscribe(candidates => {
+    this.candidateSubscription = this.candidateService.reviewCandidatesChangeEvent.subscribe(candidates => {
       this.total = candidates.length;
       this.reviewCandidates = candidates;
       this.candidate = this.reviewCandidates[this.counter];
@@ -42,9 +43,10 @@ export class CandidateReviewComponent implements OnInit {
       response.push(item);
     });
     this.candidateService.updateResponse(response, this.candidate);
-    // if (!moreCandidates) {
-    //   this.total = 0;
-    // }
+  }
+
+  ngOnDestroy(): void {
+    this.candidateSubscription.unsubscribe();
   }
 }
 

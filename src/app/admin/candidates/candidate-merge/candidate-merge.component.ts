@@ -27,7 +27,7 @@ export class CandidateMergeComponent implements OnInit, OnDestroy {
       this.unmatchedResponses = responses;
       this.total = this.unmatchedResponses.length;
     });
-    this.candidateService.getCandidates();
+    this.candidates = this.candidateService.getCandidates();
     this.candidateSubscription = this.candidateService.candidatesChangeEvent.subscribe(candidates => {
       this.candidates = candidates;
     })
@@ -51,6 +51,7 @@ export class CandidateMergeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.candidateSubscription.unsubscribe();
+    this.unmatchedResponseSubscription.unsubscribe();
   }
 
 }

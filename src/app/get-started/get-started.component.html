@@ -2,7 +2,7 @@
   <p>Welcome to our North Carolina non-partisan voter guide, where you can get information about the candidates in their
     own words. Some candidates choose not to respond to our questionnaire, so their information will be blank. To get started, select your county.</p>
   <select name="county" id="county">
-    <option value="Wake">Wake</option>
-    <option value="Mecklenburg">Mecklenburg</option>
+    <option>--Please Select a County--</option>
+    <option *ngFor="let county of counties" value="{{ county.countyName }}">{{ county.countyName }}</option>
   </select>
 </div>
