@@ -10,7 +10,6 @@ import { GetStartedComponent } from './get-started/get-started.component';
 import { AdminComponent } from './admin/admin.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CandidateComponent } from './admin/candidates/candidate.component';
-import { ResponsesComponent } from './admin/responses/responses.component';
 import { CandidateListComponent } from './admin/candidates/candidate-list/candidate-list.component';
 import { CandidateUploadComponent } from './admin/candidates/candidate-upload/candidate-upload.component';
 import { CandidateItemComponent } from './admin/candidates/candidate-list/candidate-item/candidate-item.component';
@@ -18,6 +17,7 @@ import { FileUploadComponent } from './admin/candidates/file-upload/file-upload.
 import { CandidatesFilterPipe } from './admin/candidates/candidate-filter.pipe';
 import { CandidateReviewComponent } from './admin/candidates/candidate-review/candidate-review.component';
 import { CandidateDetailComponent } from './admin/candidates/candidate-detail/candidate-detail.component';
+import { CandidateMergeComponent } from './admin/candidates/candidate-merge/candidate-merge.component';
 
 @NgModule({
   declarations: [
@@ -26,14 +26,14 @@ import { CandidateDetailComponent } from './admin/candidates/candidate-detail/ca
     GetStartedComponent,
     AdminComponent,
     CandidateComponent,
-    ResponsesComponent,
     CandidateListComponent,
     CandidateUploadComponent,
     CandidateItemComponent,
     FileUploadComponent,
     CandidatesFilterPipe,
     CandidateReviewComponent,
-    CandidateDetailComponent
+    CandidateDetailComponent,
+    CandidateMergeComponent
   ],
   imports: [
     BrowserModule,

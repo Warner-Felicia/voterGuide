@@ -1,11 +1,10 @@
 const csv = require('csvtojson');
-const candidate = require('../models/candidate');
-const { update } = require('../models/candidate');
 const Candidate = require('../models/candidate');
+const UnmatchedResponses = require('../models/unmatchedResponses');
 
 module.exports.getCandidates = async (req, res, next) => {
   try {
-    const candidates = await Candidate.find();
+    const candidates = await Candidate.find().sort({ nameOnBallot: 1 });
     res.status(200).json({
       message: 'Candidates successfully fetched',
       candidates: candidates
@@ -83,7 +82,7 @@ module.exports.getCandidatesToReview = async (req, res, next) => {
   }
 }
 
-module.exports.putUpdateCandidate = async (req, res, next) => {
+module.exports.putUpdateAndApproveCandidate = async (req, res, next) => {
   try {
     const candidate = await Candidate.findByIdAndUpdate(req.body._id, { response: req.body.response, approved: req.body.approved },)
     res.status(200).json({
@@ -93,4 +92,38 @@ module.exports.putUpdateCandidate = async (req, res, next) => {
   } catch (err) {
     console.log(err);
   }
+}
+
+module.exports.getUnmatchedResponses = async (req, res, next) => {
+  try {
+    const unmatchedResponses = await UnmatchedResponses.find();
+    res.status(200).json({
+      message: 'Unmatched responses successfully fetched',
+      unmatchedResponses: unmatchedResponses
+    })
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+module.exports.putUpdateCandidate = async (req, res, next) => {
+  try {
+    const candidate = await Candidate.findByIdAndUpdate(req.body._id, req.body );
+    res.status(200).json({
+      message: 'Candidate response sucessfully updated',
+      candidate: candidate
+    })
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+module.exports.deleteUnmatchedResponse = async (req, res, next) => {
+  try {
+      const result = await UnmatchedResponses.deleteOne({ _id: req.params.id });
+      res.status(200).json({ message: "Unmatched response succesfully deleted"});
+    } catch (err) {
+    console.log(err);
+  }
+  
 }

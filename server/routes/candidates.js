@@ -15,6 +15,12 @@ router.post('/', upload.single("candidateCSV"), candidatesController.postUploadC
 
 router.get('/reviewCandidates', candidatesController.getCandidatesToReview);
 
-router.put('/reviewCandidates', candidatesController.putUpdateCandidate);
+router.put('/reviewCandidates', candidatesController.putUpdateAndApproveCandidate);
+
+router.get('/unmatchedResponses', candidatesController.getUnmatchedResponses);
+
+router.put('/mergeCandidates', candidatesController.putUpdateCandidate);
+
+router.delete('/delete:id', candidatesController.deleteUnmatchedResponse);
 
 module.exports = router;

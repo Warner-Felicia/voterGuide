@@ -1,0 +1,41 @@
+.wrapper {
+  width: 50%;
+  margin: 30px auto;
+  border: 2px dotted rgba(242, 5, 5, .7);
+  border-radius: 3px;
+  padding: 20px;
+}
+
+p {
+  text-align: center;
+  margin-top: 0px;
+}
+
+.name {
+  font-weight: bold;
+  margin-top: -10px;
+}
+
+.inputs {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+input, select {
+  height: 30px;
+  width: 45%;
+}
+
+.button-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-delete {
+  padding: 10px 25px;
+  border-radius: 3px;
+  background-color: rgba(242, 5, 5, .7);
+  color: #fff;
+  border: none;
+}

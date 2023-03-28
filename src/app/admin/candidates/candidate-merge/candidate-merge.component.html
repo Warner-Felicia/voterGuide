@@ -1,0 +1,20 @@
+<h2 *ngIf=!unmatchedResponses>No unmatched responses</h2>
+<h2 *ngIf="unmatchedResponses">{{ total }} Unmatched Responses</h2>
+<div *ngFor="let response of unmatchedResponses" class="wrapper">
+  <p>Name submitted by candidate:</p>
+  <p class="name">{{ response.nameOnBallot }}</p>
+  <p>Select the correct name on the ballot: </p>
+  <div class="inputs">
+    <input type="search" #searchBox (keyup)="search(searchBox.value)" placeholder="Enter a search value">
+    <select #name>
+      <option *ngFor="let candidate of candidates | candidatesFilter: term" value="{{ candidate.nameOnBallot }}">
+        {{ candidate.nameOnBallot }}
+      </option>
+    </select>
+  </div>
+  <div class="button-actions">
+    <button class="btn btn-normal" (click)="matchCandidate(response._id,response.response, name.value
+  )">Match</button>
+    <button class="btn btn-delete" (click)="deleteResponse(response._id)">Delete response</button>
+  </div>
+</div>

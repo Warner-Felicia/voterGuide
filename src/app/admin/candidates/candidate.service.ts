@@ -4,6 +4,7 @@ import { Observable, Subject, map } from 'rxjs';
 import { Router } from '@angular/router';
 
 import { Candidate } from './candidate.model';
+import { UnmatchedResponse } from './candidate-merge/unmatchedResponse.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +13,11 @@ export class CandidateService {
   candidates: Candidate[] = [];
   newCandidates: Candidate[] = [];
   reviewCandidates: Candidate[] = [];
+  unmatchedResponses: UnmatchedResponse[];
   candidatesChangeEvent = new Subject<Candidate[]>();
   newCandidatesChangeEvent = new Subject<Candidate[]>();
   reviewCandidatesChangeEvent = new Subject<Candidate[]>();
+  unmatchedResponseChangeEvent = new Subject<UnmatchedResponse[]>();
 
   constructor(private http: HttpClient, private router: Router) {
     this.http.get<{ message: String, candidates: Candidate[] }>(
@@ -89,6 +92,42 @@ export class CandidateService {
       this.reviewCandidates.splice(position, 1);
       this.reviewCandidatesChangeEvent.next([...this.reviewCandidates]);
     });
+  }
+
+  getUnmatchedResponses(): UnmatchedResponse[]{
+    this.http.get<{ message: String, unmatchedResponses: UnmatchedResponse[] }>(
+      'http://localhost:3000/candidates/unmatchedResponses'
+    ).subscribe(responseData => {
+      this.unmatchedResponses = responseData.unmatchedResponses;
+      this.unmatchedResponseChangeEvent.next([...this.unmatchedResponses]);
+    }) 
+    return this.unmatchedResponses; 
+  }
+
+  updateCandidate(candidate: Candidate) {
+    this.http.put<{ message: String }>('http://localhost:3000/candidates/mergeCandidates',
+    candidate).subscribe(responseData => {
+      console.log(responseData);
+    })
+  }
+
+  deleteCandidateById(id: String) {
+    if(!id) {
+      return;
+    }
+
+    const position = this.unmatchedResponses.findIndex(r => r._id === id);
+
+    if(position < 0) {
+      return;
+    }
+
+    this.http.delete<{ message: String }>(
+      'http://localhost:3000/candidates/delete' + id
+    ).subscribe(responseData => {
+      this.unmatchedResponses.splice(position, 1);
+      this.unmatchedResponseChangeEvent.next([...this.unmatchedResponses]);
+    })
   }
 
 }
