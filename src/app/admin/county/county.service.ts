@@ -35,7 +35,6 @@ export class CountyService {
   }
 
   toggleFavorite(countyName: string, favorite: boolean) {
-    console.log(favorite);
     if (!countyName) {
       return;
     }

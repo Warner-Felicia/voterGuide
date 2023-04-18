@@ -52,14 +52,15 @@ module.exports.postUploadCandidates = async (req, res, next) => {
           },
           { upsert: true, rawResult: true, new: true }
         );
+        console.log(result);
         if (!result.lastErrorObject.updatedExisting) {
           newCandidates.push(result.value);
           candidates.push(result.value);
         } else {
           candidates.push(result.value);
+          console.log('updated candidate');
         }
       } catch (error) {
-        console.log(error);
       }
     }
   }

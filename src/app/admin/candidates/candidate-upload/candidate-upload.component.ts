@@ -52,7 +52,6 @@ export class CandidateUploadComponent implements OnInit, OnDestroy {
       const value = formValue[key];
       formData.append(key, value);
     }
-
     this.candidateService.uploadCandidateData(formData);
   }
 
