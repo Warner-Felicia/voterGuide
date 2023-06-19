@@ -13,3 +13,11 @@ input::file-selector-button {
   margin-bottom: 10px;
   margin-right: 10px;
 }
+
+input::file-selector-button:hover {
+  transform: scale(1.05);
+}
+
+input::file-selector-button:active {
+  transform: translate(2px, 2px);
+}

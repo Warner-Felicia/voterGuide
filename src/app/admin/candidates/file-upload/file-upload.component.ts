@@ -1,7 +1,5 @@
-import { Component, ElementRef, OnInit, HostListener } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
-
-import { CandidateService } from '../candidate.service';
+import { Component, ElementRef, OnInit } from '@angular/core';
+import { AbstractControl, ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
 
 @Component({
   selector: 'app-file-upload',
@@ -12,23 +10,37 @@ import { CandidateService } from '../candidate.service';
       provide: NG_VALUE_ACCESSOR,
       useExisting: FileUploadComponent,
       multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: FileUploadComponent,
+      multi: true
     }
   ]
 })
-export class FileUploadComponent implements OnInit {
-  onChange: Function;
+export class FileUploadComponent implements OnInit, ControlValueAccessor, Validator {
+  onChange = (file) => {};
+  onTouched = () => {};
   file: File | null = null;
+  touched = false;
+  disabled = false;
 
-  @HostListener('change', ['$event.target.files']) emitFiles(event: FileList) {
-    const file = event && event.item(0);
-    this.onChange(file);
-    this.file = file;
-  }
-
-
-  constructor(private candidateService: CandidateService, private host: ElementRef<HTMLInputElement>) { }
+  constructor(private host: ElementRef<HTMLInputElement>) { }
 
   ngOnInit(): void {
+  }
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    this.markAsTouched();
+
+    if (file && !this.disabled) {
+      this.onChange(file);
+    }
+  }
+
+  onClick() {
+    this.markAsTouched();
   }
 
   writeValue(value: null) {
@@ -37,12 +49,36 @@ export class FileUploadComponent implements OnInit {
     this.file = null;
   }
 
-  registerOnChange(fn: Function) {
-    this.onChange = fn;
+  registerOnChange(onChange: any) {
+    this.onChange = onChange;
   }
 
-  registerOnTouched(fn: Function) {
+  registerOnTouched(onTouched: any) {
+    this.onTouched = onTouched;
+
   }
 
+  markAsTouched() {
+    if (!this.touched) {
+      this.onTouched();
+      this.touched = true;
+    }
+  }
+
+  setDisabledState(disabled: boolean): void {
+    this.disabled = disabled;
+  }
+
+  validate(control: AbstractControl): ValidationErrors | null {
+    const file = control.value;
+    if (file) {
+      const extension = file.name.split('.')[1].toLowerCase();
+      if ('csv' !== extension.toLowerCase()) {
+        return {
+          requiredFileType: 'csv'
+        };
+      }
+    }
+  }
 
 }

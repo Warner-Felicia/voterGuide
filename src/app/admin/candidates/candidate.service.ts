@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject, map } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { map, first } from 'rxjs/operators';
 
 import { Candidate } from './candidate.model';
 import { UnmatchedResponse } from './candidate-merge/unmatchedResponse.model';
+import { NotificationService } from 'src/app/notification/notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +20,9 @@ export class CandidateService {
   newCandidatesChangeEvent = new Subject<Candidate[]>();
   reviewCandidatesChangeEvent = new Subject<Candidate[]>();
   unmatchedResponseChangeEvent = new Subject<UnmatchedResponse[]>();
+  notifications: [{ message: string, path: string}];
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private notificationService: NotificationService) {
     this.http.get<{ message: String, candidates: Candidate[] }>(
       'http://localhost:3000/candidates'
     ).subscribe(
@@ -43,7 +46,7 @@ export class CandidateService {
     if (!formData) {
       return;
     }
-    this.http.post<{ message: String, candidates: Candidate[], newCandidates: Candidate[] }>(
+    this.http.post<{ message: String, candidates: Candidate[], newCandidates: Candidate[], uncategorizedRaces: String[] }>(
       'http://localhost:3000/candidates',
       formData,
     ).subscribe(responseData => {
@@ -51,7 +54,14 @@ export class CandidateService {
       this.newCandidates = responseData.newCandidates;
       this.candidatesChangeEvent.next([...this.candidates]);
       this.newCandidatesChangeEvent.next([...this.newCandidates]);
-      this.router.navigate(['/', 'candidates', 'new']);
+      this.notifications.push({
+        message: "Your file upload has completed",
+        path: "/candidates/new"
+})
+      this.notificationService.notificationChangeEvent.next(this.notifications);
+      // if (responseData.uncategorizedRaces.length > 0) {
+      //   this.notificationService.statusChangeEvent.next(true);
+      // }
     })
   }
 
@@ -84,7 +94,7 @@ export class CandidateService {
     candidate.approved = true;
 
     //send put request to backend
-    this.http.put<{ message: String, candidate: Candidate }>(
+    this.http.put<{ message: string, candidate: Candidate }>(
       'http://localhost:3000/candidates/reviewCandidates',
       candidate
     ).subscribe(responseData => {
@@ -95,7 +105,7 @@ export class CandidateService {
   }
 
   getUnmatchedResponses(): UnmatchedResponse[]{
-    this.http.get<{ message: String, unmatchedResponses: UnmatchedResponse[] }>(
+    this.http.get<{ message: string, unmatchedResponses: UnmatchedResponse[] }>(
       'http://localhost:3000/candidates/unmatchedResponses'
     ).subscribe(responseData => {
       this.unmatchedResponses = responseData.unmatchedResponses;
@@ -105,28 +115,36 @@ export class CandidateService {
   }
 
   updateCandidate(candidate: Candidate) {
-    this.http.put<{ message: String }>('http://localhost:3000/candidates/mergeCandidates',
+    this.http.put<{ message: string }>('http://localhost:3000/candidates/mergeCandidates',
     candidate).subscribe(responseData => {
       console.log(responseData);
     })
   }
 
-  deleteCandidateById(id: String) {
+  getCandidatesByCounty(county: string) {
+    return this.http.get<{ candidates: Candidate[]}>('http://localhost:3000/candidates/byCounty' + county).pipe(map(responseData => {
+      return responseData.candidates
+    }))
+  }
+
+  deleteCandidateById(id: string) {
+    console.log(id);
     if(!id) {
       return;
     }
 
-    const position = this.unmatchedResponses.findIndex(r => r._id === id);
+    const position = this.candidates.findIndex(r => r._id === id);
 
     if(position < 0) {
       return;
     }
 
-    this.http.delete<{ message: String }>(
+    this.http.delete<{ message: string }>(
       'http://localhost:3000/candidates/delete' + id
     ).subscribe(responseData => {
-      this.unmatchedResponses.splice(position, 1);
-      this.unmatchedResponseChangeEvent.next([...this.unmatchedResponses]);
+      console.log(responseData);
+      this.candidates.splice(position, 1);
+      this.candidatesChangeEvent.next([...this.candidates]);
     })
   }
 

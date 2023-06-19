@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs';
 import { CandidateService } from '../candidate.service';
 import { CountyService } from '../../county/county.service';
 import { County } from '../../county/county.model';
-import { requiredFileType } from 'src/app/shared/requiredFileType.service';
 
 @Component({
   selector: 'app-candidate-upload',
@@ -19,6 +18,7 @@ export class CandidateUploadComponent implements OnInit, OnDestroy {
   countiesSubscription: Subscription;
   uploadForm: FormGroup;
   showOtherCounties = false;
+  isLoading = false;
 
   constructor(private candidateService: CandidateService, private countyService: CountyService, private formBuilder: FormBuilder) { }
   
@@ -37,14 +37,15 @@ export class CandidateUploadComponent implements OnInit, OnDestroy {
     )
 
     this.uploadForm = this.formBuilder.group({
-      candidateCSV: this.formBuilder.control('', [Validators.required]),
-      counties: this.formBuilder.array([], [Validators.required]),
+      candidateCSV: this.formBuilder.control('', Validators.required),
+      counties: this.formBuilder.array([], Validators.required),
       trackPrimary: this.formBuilder.control(false)
 
     })
   }
 
   onSubmit() {
+    this.isLoading = true;
     const formValue = this.uploadForm.value;
     const formData = new FormData();
 

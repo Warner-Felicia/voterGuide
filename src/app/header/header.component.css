@@ -5,7 +5,8 @@
 }
 
 .logo-wrapper {
-  width: 200px
+  width: 50%;
+  max-width: 200px;
 }
 
 .logo-wrapper image {
@@ -16,5 +17,15 @@
   margin-right: 10px;
 }
 
+.alert {
+  text-decoration: underline;
+  animation-name: blink;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+}
 
+.alert:hover {
+  animation-play-state: paused;
+  transform: scale(1.05);
+}
 

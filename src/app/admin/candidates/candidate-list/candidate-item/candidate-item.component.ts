@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { Candidate } from '../../candidate.model';
-
+import { CandidateService } from '../../candidate.service';
 @Component({
   selector: 'app-candidate-item',
   templateUrl: './candidate-item.component.html',
@@ -10,9 +10,14 @@ import { Candidate } from '../../candidate.model';
 export class CandidateItemComponent implements OnInit {
   @Input() candidate: Candidate;
 
-  constructor() { }
+  constructor(private candidateService: CandidateService) { }
 
   ngOnInit(): void {
   }
+
+  onDelete(id: string) {
+    this.candidateService.deleteCandidateById(id);
+  }
+
 
 }

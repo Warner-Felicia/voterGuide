@@ -12,6 +12,7 @@ import { FavoriteCountiesResolverService } from './admin/county/favoriteCounties
 import { CountiesResolverService } from './admin/county/counties-resolver.service';
 import { CandidateReviewComponent } from './admin/candidates/candidate-review/candidate-review.component';
 import { CandidateMergeComponent } from './admin/candidates/candidate-merge/candidate-merge.component';
+import { CandidatePrintComponent } from './admin/candidates/candidate-print/candidate-print.component';
 
 const appRoutes: Routes = [
   { path: '', component: GetStartedComponent },
@@ -20,6 +21,7 @@ const appRoutes: Routes = [
     { path: 'upload', component: CandidateUploadComponent, resolve: [FavoriteCountiesResolverService, CountiesResolverService] },
     { path: 'review', component: CandidateReviewComponent },
     { path: 'merge', component: CandidateMergeComponent},
+    { path: 'print', component: CandidatePrintComponent },
     { path: ':mode', component: CandidateListComponent }
     
   ] }

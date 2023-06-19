@@ -1,3 +1,7 @@
+.wrapper {
+  margin: auto;
+}
+
 form {
   background: rgba(242, 5, 5, .7);
   padding: 40px 40px 20px 40px;
@@ -5,14 +9,14 @@ form {
 }
 
 fieldset,
-.csv-form-control {
-  border: none;
+.csv-form-control, .notice {
+  margin: 30px auto;
   background-color: white;
   color: #000;
   box-shadow: 3px 3px 5px;
   border-radius: 3px;
   padding: 15px;
-  margin-bottom: 10px;
+  border: none;
 }
 
 .legend {
@@ -65,4 +69,17 @@ app-file-upload {
   display: flex;
   justify-content: flex-end;
   margin-top: 10px;
+}
+
+.notice {
+  display: flex;
+  align-items: center;
+}
+
+.notice button {
+  background-color: rgba(242, 5, 5, .7);
+}
+
+.notice p {
+  margin: 0px;
 }

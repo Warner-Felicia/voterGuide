@@ -18,6 +18,8 @@ import { CandidatesFilterPipe } from './admin/candidates/candidate-filter.pipe';
 import { CandidateReviewComponent } from './admin/candidates/candidate-review/candidate-review.component';
 import { CandidateDetailComponent } from './admin/candidates/candidate-detail/candidate-detail.component';
 import { CandidateMergeComponent } from './admin/candidates/candidate-merge/candidate-merge.component';
+import { CandidatePrintComponent } from './admin/candidates/candidate-print/candidate-print.component';
+import { NotificationComponent } from './notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { CandidateMergeComponent } from './admin/candidates/candidate-merge/cand
     CandidatesFilterPipe,
     CandidateReviewComponent,
     CandidateDetailComponent,
-    CandidateMergeComponent
+    CandidateMergeComponent,
+    CandidatePrintComponent,
+    NotificationComponent,
   ],
   imports: [
     BrowserModule,

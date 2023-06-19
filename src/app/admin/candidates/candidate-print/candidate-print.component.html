@@ -1,0 +1,7 @@
+<form [formGroup]="printGuideForm">
+  <label for="county">Select a County</label>
+  <select name="county" id="county" #county (change)="onSelectCounty(county.value)" formControlName="county">
+    <option value="">--Select a County--</option>
+    <option *ngFor="let county of counties" value="{{ county.countyName }}">{{ county.countyName }}</option>
+  </select>
+</form>

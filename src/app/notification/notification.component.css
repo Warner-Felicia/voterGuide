@@ -1,0 +1,27 @@
+.notification {
+  position: fixed;
+  bottom: 15px;
+  right: 20px;
+  padding: 15px;
+  background-color: #7bb6db;
+  color: #fff;
+  border-radius: 3px;
+  box-shadow: 3px 3px 5px #000;
+  text-align: right;
+}
+
+p {
+  margin: 0px;
+}
+
+.ctrl {
+  text-decoration: underline;
+  font-size: .8rem;
+  color: white;
+  margin-top: 5px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+}

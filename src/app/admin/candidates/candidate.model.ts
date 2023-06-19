@@ -2,11 +2,11 @@ import { County } from '../county/county.model';
 
 export class Candidate {
   constructor(
-    public _id: String,
+    public _id: string,
     public electionDate: Date,
     public counties: County[],
-    public contestName: String,
-    public nameOnBallot: String,
+    public contestName: string,
+    public nameOnBallot: string,
     public candidacyDate: Date,
     public voteFor: Number,
     public term: Number,

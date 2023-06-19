@@ -1,37 +1,47 @@
-<h2>Upload Candidate Information</h2>
-<form [formGroup]="uploadForm" (ngSubmit)="onSubmit()" class="main-center">
-  <div class="csv-form-control">
-    <app-file-upload formControlName="candidateCSV"></app-file-upload>
-    <input type="checkbox" formControlName="trackPrimary" name="isPrimary">
-    <label for="isPrimary" class="note">Upload primary candidates</label>
-    <p class="note">*By default only general election candidates are uploaded.  Checking this box will upload primary candidates instead.</p>
-  </div>
-  <fieldset class="counties">
-    <p class="legend">Select Counties:</p>
-    <div *ngFor="let county of favoriteCounties" class="form-control">
-      <input type="checkbox" [value]="county.countyName.toUpperCase()" (change)="onCheckboxChange($event)" id="{{county.countyName}}" />
-      <label for="{{county.countyName}}">{{ county.countyName }}</label>
-      <div class="favoritesImgWrapper" (click)="toggleFavorite(county.countyName, county.favorite)">
-        <img src="../../../../assets/images/filledFavoriteHeart.png" alt="favorite">
-      </div>
+<div class="wrapper">
+  <h2>Upload Candidate Information</h2>
+  <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
+    <div class="csv-form-control">
+      <app-file-upload formControlName="candidateCSV"></app-file-upload>
+      <p class="alert" *ngIf="!uploadForm.get('candidateCSV').valid && uploadForm.get('candidateCSV').touched">You must
+        select a file to upload</p>
+      <input type="checkbox" formControlName="trackPrimary" name="isPrimary">
+      <label for="isPrimary" class="note">Upload primary candidates</label>
+      <p class="note">*By default only general election candidates are uploaded. Checking this box will upload primary
+        candidates instead.</p>
     </div>
-    <p (click)="onShowOtherCounties(true)" *ngIf="!showOtherCounties" class="showMoreLess">show more...</p>
-    <p (click)="onShowOtherCounties(false)" *ngIf="showOtherCounties" class="showMoreLess">show less...</p>
-  </fieldset>
-  <fieldset class="allCounties" *ngIf="showOtherCounties">
-    <p class="legend">All Counties</p>
-    <div *ngFor="let county of counties" class="form-control">
-      <input type="checkbox" [value]="county.countyName.toUpperCase()" (change)="onCheckboxChange($event)"
-        id="county.countyName" />
-      <label for="county.countyName">{{ county.countyName }}</label>
-      <div class="favoritesImgWrapper" (click)="toggleFavorite(county.countyName, county.favorite)">
-        <img src="../../../../assets/images/filledFavoriteHeart.png" alt="favorite" *ngIf="county.favorite">
-        <img src="../../../../assets/images/outlineFavoriteHeart.png" alt="favorite" *ngIf="!county.favorite">
+    <fieldset class="counties">
+      <p class="legend">Select Counties:</p>
+      <div *ngFor="let county of favoriteCounties" class="form-control">
+        <input type="checkbox" [value]="county.countyName.toUpperCase()" (change)="onCheckboxChange($event)"
+          id="{{county.countyName}}" />
+        <label for="{{county.countyName}}">{{ county.countyName }}</label>
+        <div class="favoritesImgWrapper" (click)="toggleFavorite(county.countyName, county.favorite)">
+          <img src="../../../../assets/images/filledFavoriteHeart.png" alt="favorite">
+        </div>
       </div>
+      <p (click)="onShowOtherCounties(true)" *ngIf="!showOtherCounties" class="showMoreLess">show more...</p>
+      <p (click)="onShowOtherCounties(false)" *ngIf="showOtherCounties" class="showMoreLess">show less...</p>
+    </fieldset>
+    <fieldset class="allCounties" *ngIf="showOtherCounties">
+      <p class="legend">All Counties</p>
+      <div *ngFor="let county of counties" class="form-control">
+        <input type="checkbox" [value]="county.countyName.toUpperCase()" (change)="onCheckboxChange($event)"
+          id="county.countyName" />
+        <label for="county.countyName">{{ county.countyName }}</label>
+        <div class="favoritesImgWrapper" (click)="toggleFavorite(county.countyName, county.favorite)">
+          <img src="../../../../assets/images/filledFavoriteHeart.png" alt="favorite" *ngIf="county.favorite">
+          <img src="../../../../assets/images/outlineFavoriteHeart.png" alt="favorite" *ngIf="!county.favorite">
+        </div>
+      </div>
+      <p (click)="onShowOtherCounties(false)" *ngIf="showOtherCounties" class="showMoreLess">show less...</p>
+    </fieldset>
+    <div class="btn-form-wrapper" *ngIf="!isLoading">
+      <button type="submit" class="btn btn-form" [disabled]="!uploadForm.valid">Upload
+        Candidates</button>
     </div>
-    <p (click)="onShowOtherCounties(false)" *ngIf="showOtherCounties" class="showMoreLess">show less...</p>
-  </fieldset>
-  <div class="btn-form-wrapper">
-    <button type="submit" class="btn btn-form">Upload Candidates</button>
-  </div>
-</form>
+    <div class="notice" *ngIf="isLoading">
+      <p>Uploading candidate information can take up to ten minutes. We'll notify you when the process is complete.</p>
+    </div>
+  </form>
+</div>

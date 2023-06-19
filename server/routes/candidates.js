@@ -19,6 +19,8 @@ router.put('/reviewCandidates', candidatesController.putUpdateAndApproveCandidat
 
 router.get('/unmatchedResponses', candidatesController.getUnmatchedResponses);
 
+router.get('/byCounty:county', candidatesController.getCandidatesByCounty);
+
 router.put('/mergeCandidates', candidatesController.putUpdateCandidate);
 
 router.delete('/delete:id', candidatesController.deleteUnmatchedResponse);

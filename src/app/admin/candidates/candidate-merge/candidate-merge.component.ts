@@ -17,7 +17,7 @@ export class CandidateMergeComponent implements OnInit, OnDestroy {
   filteredCandidates: Candidate[];
   candidateSubscription: Subscription;
   total: number;
-  term: String;
+  term: string;
 
   constructor(private candidateService: CandidateService) { }
 
@@ -37,7 +37,7 @@ export class CandidateMergeComponent implements OnInit, OnDestroy {
     this.term = value;
   }
 
-  matchCandidate(unMatchedResponseId: String, unmatchedResponse: Array<{ question: string, answer: string, tag: string, order: number, textarea: boolean }>, actualNameOnBallot: String) {
+  matchCandidate(unMatchedResponseId: string, unmatchedResponse: Array<{ question: string, answer: string, tag: string, order: number, textarea: boolean }>, actualNameOnBallot: String) {
     const candidate = this.candidates.find(candidate => candidate.nameOnBallot === actualNameOnBallot);
     candidate.response = unmatchedResponse;
     this.candidateService.updateCandidate(candidate);   
@@ -45,7 +45,7 @@ export class CandidateMergeComponent implements OnInit, OnDestroy {
     this.candidateService.deleteCandidateById(unMatchedResponseId);
   }
 
-  deleteResponse(id: String) {
+  deleteResponse(id: string) {
     this.candidateService.deleteCandidateById(id);
   }
 

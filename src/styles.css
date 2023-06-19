@@ -1,10 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
-html,
+/* html,
 body {
   height: 100%;
   box-sizing: border-box;
-}
+} */
 
 body {
   margin: 0;
@@ -19,7 +19,7 @@ h1 {
   margin-top: 0px;
 }
 
-h2 {
+h2, h3 {
   text-align: center;
 }
 
@@ -27,6 +27,24 @@ h2 {
   padding: 10px 25px;
   border-radius: 3px;
   border: none;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+
+.btn:active {
+  transform: translate(1px, 2px);
+}
+
+.btn:disabled {
+  box-shadow: none;
+  color: rgba(256,256,256, .3);
+  background-color: rgba(0, 0, 0, .2)
+}
+
+.btn:disabled:hover {
+  transform: none
 }
 
 .btn-normal {
@@ -50,20 +68,46 @@ h2 {
   width: 100%;
 }
 
-form {
-  background: rgba(242, 5, 5, .7);
-  padding: 40px 40px 20px 40px;
-  border-radius: 3px;
+/* loading spinner */
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
 }
 
-fieldset,
-.csv-form-control {
-  border: none;
-  background-color: white;
-  color: #000;
-  box-shadow: 3px 3px 5px;
-  border-radius: 3px;
-  padding: 15px;
-  margin-bottom: 10px;
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #fff;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #fff transparent transparent transparent;
+}
+
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 

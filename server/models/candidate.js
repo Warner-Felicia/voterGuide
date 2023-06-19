@@ -27,8 +27,16 @@ var candidateSchema = new mongoose.Schema({
   },
   approved: {
     type: Boolean
+  },
+  category: {
+    type: String
+  },
+  level: {
+    type: String
+  },
+  judicial: {
+    type: Boolean
   }
-
 });
 
 module.exports = mongoose.model('candidate', candidateSchema);
