@@ -27,6 +27,7 @@ h2, h3 {
   padding: 10px 25px;
   border-radius: 3px;
   border: none;
+  box-shadow: 3px 3px 5px #000;
 }
 
 .btn:hover {

@@ -2,4 +2,6 @@
 
 <router-outlet></router-outlet>
 
-<app-notification *ngFor="let notification of notifications"></app-notification>
+<div class="notificationWrapper">
+  <app-notification *ngFor="let notification of notifications; let i = index" [notification]="notification" [index]="i"></app-notification>
+</div>

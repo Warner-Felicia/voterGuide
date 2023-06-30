@@ -37,10 +37,11 @@ module.exports.postUploadCandidates = async (req, res, next) => {
 
       //assign category, level and judicial/non-judicial information
       const updatedResponse = await helperFunctions.assignGroupingData(response);
-      uncategorizedRaces.push(updatedResponse.contest_name);
-      // if (!updatedResponse.category) {
-      //   uncategorizedRaces.push(updatedResponse.contest_name);
-      // }
+      if (!updatedResponse.category) {
+        if (!uncategorizedRaces.includes(updatedResponse.contest_name)){
+          uncategorizedRaces.push(updatedResponse.contest_name);
+        }
+      }
       try {
         const result = await Candidate.findOneAndUpdate(
           {
@@ -119,7 +120,7 @@ module.exports.getUnmatchedResponses = async (req, res, next) => {
 
 module.exports.getCandidatesByCounty = async (req, res, next) => {
   try {
-    const candidates = await Candidate.find({ counties: req.params.county.toUpperCase() });
+    const candidates = await Candidate.find( { counties: req.params.county.toUpperCase() });
     res.status(200).json({
       candidates: candidates
     })

@@ -1,7 +1,17 @@
-<form [formGroup]="printGuideForm">
-  <label for="county">Select a County</label>
-  <select name="county" id="county" #county (change)="onSelectCounty(county.value)" formControlName="county">
-    <option value="">--Select a County--</option>
-    <option *ngFor="let county of counties" value="{{ county.countyName }}">{{ county.countyName }}</option>
-  </select>
-</form>
+<div class="main-center">
+  <form [formGroup]="printGuideForm">
+    <label for="county">Select a County</label>
+    <select name="county" id="county" #county (change)="onSelectCounty(county.value)" formControlName="county">
+      <option *ngFor="let county of counties" value="{{ county.countyName }}">{{ county.countyName }}</option>
+    </select>
+  </form>
+  <p *ngIf="this.contests.length === 0 && printGuideForm.controls['county'].dirty">There are no candidates from {{ countyName }} county.</p>
+  <div *ngIf="this.contests.length > 0" class="action">
+    <p>Drag contests to your desired order, then click the button to create your print voter guide.</p>
+    <button class="btn btn-normal" (click)="createWordDoc()">Done</button>
+  </div>
+  <div>
+    <p class="drag-wrapper btn" *ngFor="let contest of contests; let i = index" [draggable]="true"
+      (dragstart)="onDragStart(i)" (dragenter)="onDragEnter(i)" (dragend)="onDragEnd()">{{ contest }}</p>
+  </div>
+</div>

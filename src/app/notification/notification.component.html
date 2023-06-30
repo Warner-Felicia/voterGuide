@@ -2,6 +2,6 @@
   <p>{{ message }}</p>
   <div class="actions">
     <p class="ctrl" (click)="closeNotification()">Close</p>
-    <a class="ctrl" (click)="getDetails()">Details >>></a>
+    <a *ngIf="redirect" class="ctrl" (click)="getDetails()">Details >>></a>
   </div>
 </div>

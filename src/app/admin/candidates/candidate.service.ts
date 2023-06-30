@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { map, first } from 'rxjs/operators';
 
 import { Candidate } from './candidate.model';
+import { Notification } from 'src/app/notification/notification.model';
 import { UnmatchedResponse } from './candidate-merge/unmatchedResponse.model';
 import { NotificationService } from 'src/app/notification/notification.service';
 
@@ -20,7 +21,6 @@ export class CandidateService {
   newCandidatesChangeEvent = new Subject<Candidate[]>();
   reviewCandidatesChangeEvent = new Subject<Candidate[]>();
   unmatchedResponseChangeEvent = new Subject<UnmatchedResponse[]>();
-  notifications: [{ message: string, path: string}];
 
   constructor(private http: HttpClient, private router: Router, private notificationService: NotificationService) {
     this.http.get<{ message: String, candidates: Candidate[] }>(
@@ -54,14 +54,21 @@ export class CandidateService {
       this.newCandidates = responseData.newCandidates;
       this.candidatesChangeEvent.next([...this.candidates]);
       this.newCandidatesChangeEvent.next([...this.newCandidates]);
-      this.notifications.push({
+      this.notificationService.addNotification({
         message: "Your file upload has completed",
+        redirect: true,
         path: "/candidates/new"
 })
-      this.notificationService.notificationChangeEvent.next(this.notifications);
-      // if (responseData.uncategorizedRaces.length > 0) {
-      //   this.notificationService.statusChangeEvent.next(true);
-      // }
+      if (responseData.uncategorizedRaces.length > 0) {
+        let message = 'The following contests were not categorized correctly:';
+        responseData.uncategorizedRaces.forEach(race => {
+          message += ' ' + race;
+        })
+        this.notificationService.addNotification({
+          message: message,
+          redirect: false
+        });
+      }
     })
   }
 

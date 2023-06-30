@@ -1,0 +1,25 @@
+form {
+  text-align: center;
+}
+
+form label {
+  padding: 25px;
+}
+
+select {
+  height: 30px;
+}
+
+.action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+}
+
+.drag-wrapper {
+  width: 250px;
+  background-color: rgba(242, 5, 5, .7);
+  color: white;
+  box-shadow: 3px 3px 5px #000;
+}

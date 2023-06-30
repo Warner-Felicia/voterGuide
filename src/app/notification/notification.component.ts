@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { NotificationService } from './notification.service';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { NotificationService } from './notification.service';
+import { Notification } from './notification.model';
 
 @Component({
   selector: 'app-notification',
@@ -8,23 +10,29 @@ import { Router } from '@angular/router';
   styleUrls: ['./notification.component.css']
 })
 export class NotificationComponent implements OnInit {
+  @Input() notification: Notification;
+  @Input() index: number;
   message: string;
-  route: string;
+  redirect: boolean;
+  path: string;
 
   constructor(private notificationService: NotificationService, private router: Router) { }
 
   ngOnInit(): void {
-    this.message = "Your file upload is complete";
-    this.route = "/" + "candidates/new";
+    this.message = this.notification.message;
+    this.redirect = this.notification.redirect;
+    if (this.redirect) {
+      this.path = "/" + this.notification.path;
+    }
   }
 
   closeNotification() {
-    // this.notificationService.statusChangeEvent.next(false);
+    this.notificationService.removeNotification(this.index);
   }
 
   getDetails() {
-    // this.notificationService.statusChangeEvent.next(false);
-    // this.router.navigate(['/', 'candidates', 'new']);
+    this.notificationService.removeNotification(this.index);
+    this.router.navigateByUrl(this.path);
   }
 
 }

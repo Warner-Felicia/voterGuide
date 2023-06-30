@@ -5,7 +5,7 @@
       <app-file-upload formControlName="candidateCSV"></app-file-upload>
       <p class="alert" *ngIf="!uploadForm.get('candidateCSV').valid && uploadForm.get('candidateCSV').touched">You must
         select a file to upload</p>
-      <input type="checkbox" formControlName="trackPrimary" name="isPrimary">
+      <input type="checkbox" formControlName="trackPrimary" name="isPrimary" id="isPrimary">
       <label for="isPrimary" class="note">Upload primary candidates</label>
       <p class="note">*By default only general election candidates are uploaded. Checking this box will upload primary
         candidates instead.</p>
@@ -27,8 +27,8 @@
       <p class="legend">All Counties</p>
       <div *ngFor="let county of counties" class="form-control">
         <input type="checkbox" [value]="county.countyName.toUpperCase()" (change)="onCheckboxChange($event)"
-          id="county.countyName" />
-        <label for="county.countyName">{{ county.countyName }}</label>
+          id="{{county.countyName}}" />
+        <label for="{{county.countyName}}">{{ county.countyName }}</label>
         <div class="favoritesImgWrapper" (click)="toggleFavorite(county.countyName, county.favorite)">
           <img src="../../../../assets/images/filledFavoriteHeart.png" alt="favorite" *ngIf="county.favorite">
           <img src="../../../../assets/images/outlineFavoriteHeart.png" alt="favorite" *ngIf="!county.favorite">
